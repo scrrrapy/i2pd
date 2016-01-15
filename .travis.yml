@@ -5,6 +5,8 @@ os:
   - linux
 sudo: required
 dist: trusty
+services:
+  - docker
 addons:
   apt:
     packages:
@@ -23,9 +25,14 @@ addons:
       - libssl-dev
 compiler:
   - gcc
-env:
-  matrix:
-    - BUILD_TYPE=Release UPNP=ON
-    - BUILD_TYPE=Release UPNP=OFF
-script:
-  - cd build && cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DWITH_UPNP=${UPNP} && make
+script: |
+  cd build
+  cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE:-Release} ${CMAKE_FLAGS}
+  make
+matrix:
+  include:
+    - env: BUILD_TYPE=Release CMAKE_FLAGS="-DWITH_UPNP=ON"
+    - env: BUILD_TYPE=Release CMAKE_FLAGS="-DWITH_UPNP=OFF"
+    # Make sure Docker containers still build
+    - script: cat build/docker/ubuntu:trusty/Dockerfile | docker build -t i2pd/ubuntu:trusty -
+    - script: cat build/docker/fedora:23/Dockerfile | docker build -t i2pd/fedora:23 -
