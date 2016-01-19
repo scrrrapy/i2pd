@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# -*- mode: sh -*-
+
+#
+# Releases RPM package from git HEAD(runs in Docker)
+#
+
+set -e
+
+if [ $# = 0 ] || [[ "$@" = *"-h"* ]]
+then
+    echo "Usage: $0 [-h] | <version>"
+    echo
+    echo "Arguments:"
+    echo "    <version>   Version number, example: 2.2.0-2"
+    echo
+    exit 1
+fi 1>&2
+
+version="$1"
+repo_root="$(git rev-parse --show-toplevel)"
+artifacts_dir="${repo_root}/build/rpm"
+
+git archive --format=tar HEAD | \
+    sudo docker run \
+         -e VERSION="$version" \
+         -i i2pd/fedora:23 /bin/sh -c 'mkdir -p /tmp/src && cd $_ && tar x && ./scripts/build-rpm.builder.sh' | \
+    {
+        mkdir -p "$artifacts_dir"
+        tar x -C "$artifacts_dir"
+    }

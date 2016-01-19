@@ -1,0 +1,14 @@
+[Unit]
+Description = i2pd
+After = syslog.target network.target nss-lookup.target local-fs.target time-sync.target
+
+[Service]
+Type = simple
+User = i2pd
+PIDFile = /run/i2pd/i2pd.pid
+Environment=TZ=UTC
+EnvironmentFile=/etc/sysconfig/i2pd
+ExecStart=/usr/bin/i2pd --conf="${I2PD_CONF}" --tunnelscfg="${I2PD_TUNCONF}" --port="${I2PD_PORT}"
+
+[Install]
+WantedBy=multi-user.target

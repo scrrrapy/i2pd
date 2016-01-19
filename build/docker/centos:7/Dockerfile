@@ -12,7 +12,7 @@ RUN usermod -d /tmp nobody && \
          openssl-devel \
          miniupnpc-devel \
          git \
-         rpm-build \
+         rpmdevtools \
          && yum clean all
 
 # Centos 7 has old CMake version, we will repack fc21 2.8.12 CMake here

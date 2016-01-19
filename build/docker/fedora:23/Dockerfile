@@ -9,7 +9,7 @@ RUN usermod -d /tmp nobody && \
          cmake \
          gcc \
          gcc-c++ \
-         rpm-build \
+         rpmdevtools \
          boost-devel \
          openssl-devel \
          miniupnpc-devel \

@@ -16,6 +16,8 @@ option(WITH_PCH "Use precompiled header" OFF)
 set ( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake_modules" )
 set ( CMAKE_SOURCE_DIR ".." )
 
+set ( CMAKE_SKIP_BUILD_RPATH ON )
+
 set (LIBI2PD_SRC
   "${CMAKE_SOURCE_DIR}/Crypto.cpp"
   "${CMAKE_SOURCE_DIR}/Garlic.cpp"
@@ -24,7 +26,7 @@ set (LIBI2PD_SRC
   "${CMAKE_SOURCE_DIR}/LeaseSet.cpp"
   "${CMAKE_SOURCE_DIR}/Log.cpp"
   "${CMAKE_SOURCE_DIR}/NTCPSession.cpp"
-  "${CMAKE_SOURCE_DIR}/NetDbRequests.cpp"	
+  "${CMAKE_SOURCE_DIR}/NetDbRequests.cpp"
   "${CMAKE_SOURCE_DIR}/NetDb.cpp"
   "${CMAKE_SOURCE_DIR}/Profiling.cpp"
   "${CMAKE_SOURCE_DIR}/Reseed.cpp"
@@ -34,7 +36,7 @@ set (LIBI2PD_SRC
   "${CMAKE_SOURCE_DIR}/SSUData.cpp"
   "${CMAKE_SOURCE_DIR}/SSUSession.cpp"
   "${CMAKE_SOURCE_DIR}/Streaming.cpp"
-  "${CMAKE_SOURCE_DIR}/Destination.cpp"	
+  "${CMAKE_SOURCE_DIR}/Destination.cpp"
   "${CMAKE_SOURCE_DIR}/TransitTunnel.cpp"
   "${CMAKE_SOURCE_DIR}/Tunnel.cpp"
   "${CMAKE_SOURCE_DIR}/TunnelGateway.cpp"
@@ -64,7 +66,7 @@ install(TARGETS libi2pd
 
 set (CLIENT_SRC
   "${CMAKE_SOURCE_DIR}/AddressBook.cpp"
-  "${CMAKE_SOURCE_DIR}/BOB.cpp"	
+  "${CMAKE_SOURCE_DIR}/BOB.cpp"
   "${CMAKE_SOURCE_DIR}/ClientContext.cpp"
   "${CMAKE_SOURCE_DIR}/I2PTunnel.cpp"
   "${CMAKE_SOURCE_DIR}/I2PService.cpp"
